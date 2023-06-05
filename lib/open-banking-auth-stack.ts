@@ -48,7 +48,6 @@ export class OpenBankingAuthStack extends cdk.Stack {
     oidc_service.targetGroup.configureHealthCheck({
       path: '/.well-known/openid-configuration',
       port: "80",
-      interval: Duration.seconds(10),
       healthyThresholdCount: 2
     });
 
@@ -128,7 +127,6 @@ export class OpenBankingAuthStack extends cdk.Stack {
       runtime: lambda.Runtime.NODEJS_14_X,
       code: lambda.Code.fromAsset("resources/lambda"),
       handler: "custom-secrets-manager.handler",
-      timeout: Duration.minutes(5),
       role: customResourceRole,
       environment: {
         JWKS_ENDPOINT: OIDC_JWKS_ENDPOINT,
